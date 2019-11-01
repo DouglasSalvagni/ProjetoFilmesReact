@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './home.scss'
 
 class Home extends Component {
 
@@ -13,26 +15,33 @@ class Home extends Component {
 
     componentDidMount() {
         this.loadFilmes()
-        console.log(this.state)
     }
 
     loadFilmes() {
-        let html = 'https://sujeitoprogramador.com/r-api/?api=filmes';
-        fetch(html)
-            .then((json) => {
-                const dados = JSON.parse(json)
-                let state = this.state;
-                state.filmes = dados;
-                this.setState(state)
-            })
-            .then()
+        let url = 'https://sujeitoprogramador.com/r-api/?api=filmes';
+        fetch(url)
+        .then((r) => r.json())
+        .then((json) => {
+            this.setState({filmes: json});
+        })
     }
 
     render(){
         return(
-            <React.Fragment>
-                Página Home
-            </React.Fragment>
+            <div className='container'>
+                <div className='lista-filmes'>
+                    {this.state.filmes.map((item)=> {
+                        return(
+                            <article className='card-filmes' key={item.id}>
+                                <strong className='card-filmes__title'>{item.nome}</strong>
+                                <img className='card-filmes__img' src={item.foto} alt='capa'></img>
+                                <Link to='/' className='card-filmes__link'>Acessar</Link>
+                                <div className='card-filmes__text'>{item.sinopse}</div>
+                            </article>
+                        );
+                    })}
+                </div>
+            </div>
         );
     }
 }
