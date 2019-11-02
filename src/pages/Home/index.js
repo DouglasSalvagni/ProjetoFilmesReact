@@ -30,13 +30,12 @@ class Home extends Component {
         return(
             <div className='container'>
                 <div className='lista-filmes'>
-                    {this.state.filmes.map((item)=> {
+                    {this.state.filmes.map((filme)=> {
                         return(
-                            <article className='card-filmes' key={item.id}>
-                                <strong className='card-filmes__title'>{item.nome}</strong>
-                                <img className='card-filmes__img' src={item.foto} alt='capa'></img>
-                                <Link to='/' className='card-filmes__link'>Acessar</Link>
-                                <div className='card-filmes__text'>{item.sinopse}</div>
+                            <article className='card-filmes' key={filme.id}>
+                                <strong className='card-filmes__title'>{filme.nome}</strong>
+                                <img className='card-filmes__img' src={filme.foto} alt='capa'></img>
+                                <Link to={`/filme/${filme.id}`} className='card-filmes__link'>Acessar</Link>
                             </article>
                         );
                     })}
